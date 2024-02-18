@@ -1,0 +1,9 @@
+{
+    "name": "ler-xml",
+    "version": "1.0.0",
+    "main": "script.js",
+    "license": "MIT",
+    "dependencies": {
+        "readline-sync": "^1.4.10"
+    }
+}
