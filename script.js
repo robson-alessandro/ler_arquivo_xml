@@ -11,12 +11,18 @@ let valorString = [];
 let pulaLinha ='\n' ;
 let valor;
 
+function retirarValor(texto) {
+    dividirTexto = texto.split('<');
+    valorString = dividirTexto[1].split('>');
+    valor = parseInt(valorString[1]);
+
+    return valor;
+}
+
 line.on("line", (data) => {
 
     if(data.includes("TRNAMT")){
-        dividirTexto = data.split('<');
-        valorString = dividirTexto[1].split('>');
-        valor = parseInt(valorString[1]);
+        valor = retirarValor(data);
         //"mostrar o valor de cada transação: "
         console.log("valor transação: ", valor);
         if(valor<0){
@@ -31,10 +37,14 @@ line.on("line", (data) => {
         console.log( "total = ", total);
         console.log( "total gastos = ", totalNegativo);
 
-        fs.appendFile('resultado.txt',("total: " + (total.toString())+(pulaLinha)), function (err) {
+        fs.appendFile('resultado.txt',("total(gastos e recebidos): " + (total.toString())+(pulaLinha)), function (err) {
             if (err) throw err;
             console.log('Saved!');
-        });   
+        }); 
+        fs.appendFile('resultado.txt',("total gasto: " + (totalNegativo.toString())+(pulaLinha)), function (err) {
+            if (err) throw err;
+            console.log('Saved!');
+        });  
     }
 })
 
